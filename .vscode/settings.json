@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.configPath": "./prettier.config.cjs",
+  "prettier.documentSelectors": ["**/*.astro", "**/*.ts", "**/*.tsx"],
+  "prettier.requireConfig": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

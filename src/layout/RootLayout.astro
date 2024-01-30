@@ -1,0 +1,36 @@
+---
+import "@/styles/tailwind.css";
+
+import { getPageMetadata } from "@/utils/app/metadata";
+
+type Props = {
+  title?: string;
+  desc?: string;
+};
+const { title, desc } = Astro.props;
+
+const { title: actualTitle, description: actualDesc } = getPageMetadata(
+  {
+    title: title,
+    description: desc,
+  },
+  {
+    title: false,
+    description: false,
+  },
+);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{actualTitle}</title>
+    <meta name="description" content={actualDesc} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
