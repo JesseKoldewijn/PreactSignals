@@ -7,6 +7,10 @@
     @apply bg-neutral-950 font-sans text-neutral-100;
   }
 
+  html {
+    @apply overflow-x-hidden antialiased;
+  }
+
   * {
     @apply border-neutral-100;
   }
