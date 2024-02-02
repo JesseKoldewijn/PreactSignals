@@ -1,7 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "/home/jesse/wsl-projects/Personal/ReactSignals",
     "paths": {
       "@/*": ["src/*"],
     },
@@ -10,5 +10,7 @@
         "name": "@astrojs/ts-plugin",
       },
     ],
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
   },
 }

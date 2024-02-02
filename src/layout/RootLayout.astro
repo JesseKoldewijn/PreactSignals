@@ -3,11 +3,16 @@ import "@/styles/tailwind.css";
 
 import { getPageMetadata } from "@/utils/app/metadata";
 
+import HeroBanner from "@/components/ui/HeroBanner";
+import { ViewTransitions } from "astro:transitions";
+
 type Props = {
   title?: string;
   desc?: string;
+  bannerTitle?: string;
+  bannerSubtitle?: string;
 };
-const { title, desc } = Astro.props;
+const { title, desc, bannerTitle, bannerSubtitle } = Astro.props;
 
 const { title: actualTitle, description: actualDesc } = getPageMetadata(
   {
@@ -29,8 +34,10 @@ const { title: actualTitle, description: actualDesc } = getPageMetadata(
     <meta name="generator" content={Astro.generator} />
     <title>{actualTitle}</title>
     <meta name="description" content={actualDesc} />
+    <ViewTransitions />
   </head>
   <body>
+    <HeroBanner title={bannerTitle} subtitle={bannerSubtitle} />
     <slot />
   </body>
 </html>

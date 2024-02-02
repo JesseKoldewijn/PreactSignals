@@ -16,7 +16,7 @@ const getMetakey = ({
   isAbsolute,
 }: {
   key: keyof PageMeta;
-  value: string;
+  value?: string;
   isAbsolute: boolean;
 }) => {
   const configHasRelativeAndAbsolute =
@@ -36,7 +36,10 @@ const getMetakey = ({
   if (!titleConfigIsRelative) {
     return { key, value: `${value} | ${configMeta.title.relative}` };
   } else {
-    return { key, value: configMeta.title.relative.replace("%s", value) };
+    return {
+      key,
+      value: value ? configMeta.title.relative.replace("%s", value) : undefined,
+    };
   }
 };
 
@@ -46,18 +49,33 @@ export const getPageMetadata = (
 ) => {
   const { title: absoluteTitle, description: absoluteDesc } = forceAbsolute;
 
-  const metaMap = new Map<keyof PageMeta, string>();
+  const metaMap: {
+    key: keyof PageMeta;
+    value?: string;
+  }[] = [];
 
-  Object.entries(page).forEach(([key, value]) => {
+  const keys = Object.keys(page) as (keyof PageMeta)[];
+  const values = Object.values(page) as string[];
+  const entries = keys.map((key, i) => [key, values[i]] as const);
+
+  for (const [key, value] of entries) {
     const meta = getMetakey({
       key: key as keyof PageMeta,
       value: value,
       isAbsolute: Boolean(absoluteTitle || absoluteDesc),
     });
-    metaMap.set(meta.key, meta.value);
-  });
 
-  return Object.fromEntries(metaMap) as {
-    [K in keyof typeof appConfig.meta]: string;
-  };
+    metaMap.push({
+      key: meta.key,
+      value: meta.value ?? appConfig.meta[meta.key].absolute ?? undefined,
+    });
+  }
+
+  const metadata = metaMap.reduce((acc, { key, value }) => {
+    acc[key] = value;
+
+    return acc;
+  }, {} as PageMeta);
+
+  return metadata;
 };
