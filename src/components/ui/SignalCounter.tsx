@@ -1,58 +1,97 @@
-import { computed } from "@preact/signals-react";
-import { useEffect, useState } from "react";
+import { type ReadonlySignal, computed } from "@preact/signals-react";
+import { memo, useEffect, useState } from "react";
 
 import { count } from "@/signals/globals";
 
 const SignalCounter = () => {
   const [renderedAt, setRenderedAt] = useState(new Date());
 
+  // computed values to display the current count, double and triple
   const showCount = computed(() => count.value);
   const showDouble = computed(() => count.value * 2);
   const showTriple = computed(() => count.value * 3);
 
-  const formatDateUsingIntl = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
-      dateStyle: "short",
-      timeStyle: "medium",
-    }).format(date);
-  };
+  /**
+   * wrapping with memo to prevent re-rendering of the component
+   * while this wont happen unless HMR just ran due to the nature of signals
+   */
+  const FormatDateUsingIntl = memo(
+    ({ date }: { date: Date }) => {
+      return (
+        <>
+          {new Intl.DateTimeFormat("en-US", {
+            dateStyle: "short",
+            timeStyle: "medium",
+          }).format(date)}
+        </>
+      );
+    },
+    (prevProps, nextProps) => {
+      return prevProps === nextProps;
+    },
+  );
 
+  // handle click event to increment the count
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     count.value++;
   };
+
+  /**
+   * wrapping with memo to prevent re-rendering of the component
+   * while this wont happen unless HMR just ran due to the nature of signals
+   */
+  const RenderCountValue = memo(
+    ({ label, value }: { label: string; value: ReadonlySignal<number> }) => {
+      return (
+        <div className="flex w-full justify-between gap-2">
+          <span>{label}</span>
+          <span>{value}</span>
+        </div>
+      );
+    },
+    (prevProps, nextProps) => {
+      return prevProps.value === nextProps.value;
+    },
+  );
 
   useEffect(() => {
     setRenderedAt(new Date());
   }, [count]);
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-3 px-5">
-      <strong>Signal Counter</strong>
+    <div className="flex w-full flex-col items-center justify-center gap-4 px-5 pt-5">
+      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border p-5">
+        <strong className="mb-4 text-lg font-semibold">Signal Counter</strong>
 
-      <div className="flex w-full max-w-sm flex-col gap-2 rounded-lg border px-4 py-2">
-        <div className="flex w-full justify-between gap-2">
-          <span>RenderedAt</span>
-          <span className="max-w-34 overflow-x-hidden text-ellipsis text-nowrap">
-            {formatDateUsingIntl(renderedAt)}
-          </span>
+        <div className="mb-4 flex w-full max-w-sm flex-col gap-2 rounded-lg border px-4 py-2">
+          <div className="flex w-full justify-between gap-2">
+            <span>RenderedAt</span>
+            <span className="max-w-34 overflow-x-hidden text-ellipsis text-nowrap">
+              <FormatDateUsingIntl date={renderedAt} />
+            </span>
+          </div>
+          <hr />
+          {[showCount, showDouble, showTriple].map((value, index) => {
+            const labels = ["Count", "Double", "Triple"];
+
+            return (
+              <RenderCountValue
+                key={labels[index]}
+                label={labels[index]}
+                value={value}
+              />
+            );
+          })}
         </div>
-        <hr />
-        <div className="flex w-full justify-between gap-2">
-          <span>Count</span>
-          <span>{showCount}</span>
-        </div>
-        <div className="flex w-full justify-between gap-2">
-          <span>Double</span>
-          <span>{showDouble}</span>
-        </div>
-        <div className="flex w-full justify-between gap-2">
-          <span>Triple</span>
-          <span>{showTriple}</span>
-        </div>
+
+        <button
+          className="flex h-10 w-full items-center justify-center rounded-md bg-neutral-100 text-center font-medium text-neutral-950"
+          onClick={handleClick}
+        >
+          Click me
+        </button>
       </div>
-
-      <button onClick={handleClick}>Click me</button>
     </div>
   );
 };
