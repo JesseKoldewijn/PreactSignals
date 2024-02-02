@@ -20,7 +20,7 @@ const ImageKey = `banner-${(title ?? "default").replaceAll(" ", "-")}-${MobileBa
 
 <div
   class={cn(
-    "relative grid h-96 max-h-96 max-w-[100vw] grid-cols-1 items-center overflow-hidden truncate md:grid-cols-4",
+    "relative grid h-screen max-h-64 max-w-[100vw] grid-cols-1 items-center overflow-hidden truncate sm:max-h-96 md:grid-cols-4",
     className,
   )}
   {...rest}
@@ -31,7 +31,7 @@ const ImageKey = `banner-${(title ?? "default").replaceAll(" ", "-")}-${MobileBa
     srcset={`${MobileBackground.src} 640w, ${DesktopBackground.src} 1024w`}
     sizes="(max-width: 640px) 100vw, 50vw"
     alt="Background of hero banner"
-    class="absolute inset-0 -z-[2] h-full w-full object-cover transition-opacity duration-[1500ms]"
+    class="absolute inset-0 -z-[3] h-full w-full object-cover transition-opacity duration-[1500ms]"
     style={{
       opacity: 0,
     }}
@@ -44,7 +44,11 @@ const ImageKey = `banner-${(title ?? "default").replaceAll(" ", "-")}-${MobileBa
     client:load
   />
   <div
-    class="absolute inset-0 -z-[1] flex h-full w-full bg-purple-950 bg-opacity-15 backdrop-blur-[1px]"
+    class="absolute inset-0 -z-[2] flex h-full w-full bg-neutral-950 bg-opacity-50 backdrop-blur-[1px]"
+  >
+  </div>
+  <div
+    class="absolute inset-0 -z-[1] flex h-full w-full bg-purple-950 bg-opacity-20 backdrop-blur-[1px]"
   >
   </div>
   <div
