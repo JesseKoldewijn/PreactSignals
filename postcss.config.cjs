@@ -3,7 +3,7 @@ module.exports = {
     "postcss-import": {},
     "tailwindcss/nesting": "postcss-nesting",
     tailwindcss: {
-      config: require.resolve("./tailwind.config.cjs"),
+      config: "./tailwind.config.cjs",
     },
     "postcss-preset-env": {
       autoprefixer: {},
