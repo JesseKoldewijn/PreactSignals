@@ -29,7 +29,7 @@ const HeroBanner = (props: HeroBannerProps) => {
         alt="Background of hero banner"
         className="absolute inset-0 -z-[2] h-full w-full object-cover"
       />
-      <div className="absolute inset-0 -z-[1] flex h-full w-full bg-purple-950 bg-opacity-10 backdrop-blur-[1px]"></div>
+      <div className="absolute inset-0 -z-[1] flex h-full w-full bg-purple-950 bg-opacity-15 backdrop-blur-[1px]"></div>
       <div className="col-span-full flex flex-col items-center justify-center gap-3 text-center md:col-span-2 md:col-start-2">
         <h1 className="text-3xl font-semibold text-orange-300 sm:text-4xl">
           {title ?? appConfig.banner.defaults.title}
