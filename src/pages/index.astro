@@ -1,10 +1,34 @@
 ---
 import SignalCounter from "@/components/ui/SignalCounter";
 import RootLayout from "@/layout/RootLayout.astro";
+import Stats from "@/components/perf/Stats";
 ---
 
 <RootLayout>
-  <div class="flex flex-col items-center justify-center gap-4 pt-8">
-    <SignalCounter client:visible />
+  <div class="flex flex-col items-center justify-center gap-12 pt-8">
+    <section class="flex flex-col items-center justify-center gap-4">
+      <strong class="text-center text-3xl font-semibold">
+        Reactivity with Signals
+      </strong>
+
+      <p class="max-w-sm text-pretty text-center text-lg text-neutral-200">
+        The simple example below demonstrates how signals can be used to create
+        reactivity with React.js & Signals.
+      </p>
+
+      <SignalCounter client:visible />
+    </section>
+
+    <section class="flex flex-col items-center justify-center gap-4">
+      <strong class="text-center text-3xl font-semibold">
+        Resources Stats
+      </strong>
+
+      <p class="max-w-sm text-pretty text-center text-lg text-neutral-200">
+        The stats below show the current resource usage of the page.
+      </p>
+
+      <Stats client:load />
+    </section>
   </div>
 </RootLayout>

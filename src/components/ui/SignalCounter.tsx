@@ -4,7 +4,7 @@ import { memo, useEffect, useState } from "react";
 import { count } from "@/signals/globals";
 
 const SignalCounter = () => {
-  const [renderedAt, setRenderedAt] = useState(new Date());
+  const [renderedAt, setRenderedAt] = useState<Date>();
 
   // computed values to display the current count, double and triple
   const showCount = computed(() => count.value);
@@ -16,7 +16,8 @@ const SignalCounter = () => {
    * while this wont happen unless HMR just ran due to the nature of signals
    */
   const FormatDateUsingIntl = memo(
-    ({ date }: { date: Date }) => {
+    ({ date }: { date?: Date }) => {
+      if (!date) return null;
       return (
         <>
           {new Intl.DateTimeFormat("en-US", {
@@ -61,7 +62,7 @@ const SignalCounter = () => {
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 px-5 pt-5">
-      <div className="flex flex-col items-center justify-center gap-4 rounded-xl border p-5">
+      <div className="flex w-full max-w-sm flex-col items-center justify-center gap-4 rounded-xl border p-5">
         <strong className="mb-4 text-lg font-semibold">Signal Counter</strong>
 
         <div className="mb-4 flex w-full max-w-sm flex-col gap-2 rounded-lg border px-4 py-2">
