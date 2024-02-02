@@ -14,4 +14,7 @@ export default defineConfig({
       })
     : vercel(),
   integrations: [react()],
+  experimental: {
+    clientPrerender: true,
+  },
 });

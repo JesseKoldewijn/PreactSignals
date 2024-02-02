@@ -1,4 +1,4 @@
-import React, { Suspense, memo, useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 type Resource = {
   duration: number;
