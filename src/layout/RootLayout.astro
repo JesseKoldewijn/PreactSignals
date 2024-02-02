@@ -4,7 +4,9 @@ import "@/styles/tailwind.css";
 import { getPageMetadata } from "@/utils/app/metadata";
 
 import HeroBanner from "@/components/ui/HeroBanner.astro";
-import { ViewTransitions } from "astro:transitions";
+import { ViewTransitions, slide } from "astro:transitions";
+import Navbar from "@/components/navigation/Navbar";
+import Footer from "@/components/navigation/Footer.astro";
 
 type Props = {
   title?: string;
@@ -24,6 +26,8 @@ const { title: actualTitle, description: actualDesc } = getPageMetadata(
     description: false,
   },
 );
+
+const initialPathname = new URL(Astro.request.url).pathname;
 ---
 
 <html lang="en">
@@ -37,7 +41,11 @@ const { title: actualTitle, description: actualDesc } = getPageMetadata(
     <ViewTransitions />
   </head>
   <body>
+    <Navbar initialPathname={initialPathname} client:visible />
     <HeroBanner title={bannerTitle} subtitle={bannerSubtitle} />
-    <slot />
+    <div class="mb-20">
+      <slot />
+    </div>
+    <Footer />
   </body>
 </html>

@@ -1,4 +1,7 @@
 export const appConfig = {
+  branding: {
+    name: "Signal - Jereko",
+  },
   banner: {
     defaults: {
       title: "React Signals",

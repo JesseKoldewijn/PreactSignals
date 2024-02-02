@@ -1,7 +1,6 @@
 ---
 import SignalCounter from "@/components/ui/SignalCounter";
 import RootLayout from "@/layout/RootLayout.astro";
-import Stats from "@/components/perf/Stats";
 ---
 
 <RootLayout>
@@ -17,18 +16,6 @@ import Stats from "@/components/perf/Stats";
       </p>
 
       <SignalCounter client:visible />
-    </section>
-
-    <section class="flex flex-col items-center justify-center gap-4">
-      <strong class="text-center text-3xl font-semibold">
-        Resources Stats
-      </strong>
-
-      <p class="max-w-sm text-pretty text-center text-lg text-neutral-200">
-        The stats below show the current resource usage of the page.
-      </p>
-
-      <Stats client:load />
     </section>
   </div>
 </RootLayout>

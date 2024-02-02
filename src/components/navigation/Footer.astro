@@ -1,0 +1,17 @@
+---
+import Stats from "../perf/Stats";
+---
+
+<footer class="relative inset-0">
+  <section class="flex flex-col items-center justify-center gap-4">
+    <strong class="text-center text-3xl font-semibold">
+      Resources Stats
+    </strong>
+
+    <p class="max-w-sm text-pretty text-center text-lg text-neutral-200">
+      The stats below show the current resource usage of the page.
+    </p>
+
+    <Stats client:idle />
+  </section>
+</footer>

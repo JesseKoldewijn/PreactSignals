@@ -1,0 +1,30 @@
+---
+import SignalCounter from "@/components/ui/SignalCounter";
+import RootLayout from "@/layout/RootLayout.astro";
+
+const layoutProps = {
+  title: "Shuffler",
+  desc: "Shuffler",
+  bannerTitle: "Shuffler",
+  bannerSubtitle:
+    "On this page you'll find a few examples of extreme Signal based DOM ordering and sorting manipulation.",
+};
+---
+
+<RootLayout {...layoutProps}>
+  <div class="flex flex-col items-center justify-center gap-12 pt-8">
+    <section class="flex flex-col items-center justify-center gap-4">
+      <strong class="text-center text-3xl font-semibold">
+        Taking Signals to the Extreme
+      </strong>
+
+      <p class="max-w-sm text-pretty text-center text-lg text-neutral-200">
+        Below are a few examples of extreme Signal based DOM ordering and
+        sorting manipulation. Think about grid reordering, shuffle, destroying
+        and restoring elements.
+      </p>
+
+      [WIP]
+    </section>
+  </div>
+</RootLayout>
