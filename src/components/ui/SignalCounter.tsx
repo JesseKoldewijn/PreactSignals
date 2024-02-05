@@ -1,5 +1,5 @@
-import { type ReadonlySignal, computed } from "@preact/signals-react";
-import { memo, useEffect, useState } from "react";
+import { type ReadonlySignal, computed } from "@preact/signals";
+import { useEffect, useState } from "preact/hooks";
 
 import { count } from "@/signals/globals";
 
@@ -15,26 +15,20 @@ const SignalCounter = () => {
    * wrapping with memo to prevent re-rendering of the component
    * while this wont happen unless HMR just ran due to the nature of signals
    */
-  const FormatDateUsingIntl = memo(
-    ({ date }: { date?: Date }) => {
-      if (!date) return null;
-      return (
-        <>
-          {new Intl.DateTimeFormat("en-US", {
-            dateStyle: "short",
-            timeStyle: "medium",
-          }).format(date)}
-        </>
-      );
-    },
-    (prevProps, nextProps) => {
-      return prevProps === nextProps;
-    },
-  );
+  const FormatDateUsingIntl = ({ date }: { date?: Date }) => {
+    if (!date) return null;
+    return (
+      <>
+        {new Intl.DateTimeFormat("en-US", {
+          dateStyle: "short",
+          timeStyle: "medium",
+        }).format(date)}
+      </>
+    );
+  };
 
   // handle click event to increment the count
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleClick = () => {
     count.value++;
   };
 
@@ -42,19 +36,20 @@ const SignalCounter = () => {
    * wrapping with memo to prevent re-rendering of the component
    * while this wont happen unless HMR just ran due to the nature of signals
    */
-  const RenderCountValue = memo(
-    ({ label, value }: { label: string; value: ReadonlySignal<number> }) => {
-      return (
-        <div className="flex w-full justify-between gap-2">
-          <span>{label}</span>
-          <span>{value}</span>
-        </div>
-      );
-    },
-    (prevProps, nextProps) => {
-      return prevProps.value === nextProps.value;
-    },
-  );
+  const RenderCountValue = ({
+    label,
+    value,
+  }: {
+    label: string;
+    value: ReadonlySignal<number>;
+  }) => {
+    return (
+      <div className="flex w-full justify-between gap-2">
+        <span>{label}</span>
+        <span>{value}</span>
+      </div>
+    );
+  };
 
   useEffect(() => {
     setRenderedAt(new Date());

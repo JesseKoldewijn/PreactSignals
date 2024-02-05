@@ -1,29 +1,25 @@
-import { memo, useEffect } from "react";
+import type { CSSProperties } from "preact/compat";
+import { useEffect } from "preact/hooks";
 
 type ImageAttributeEditorProps = {
   elementID: string;
-  CssKey: keyof React.CSSProperties;
+  CssKey: keyof CSSProperties;
   CssValue: string;
 };
 
-const ImageAttributeEditor = memo(
-  ({ elementID, CssKey, CssValue }: ImageAttributeEditorProps) => {
-    useEffect(() => {
-      const element = document.getElementById(elementID);
-      if (element) {
-        element.style.setProperty(CssKey, CssValue);
-      }
-    }, [elementID, CssKey, CssValue]);
+const ImageAttributeEditor = ({
+  elementID,
+  CssKey,
+  CssValue,
+}: ImageAttributeEditorProps) => {
+  useEffect(() => {
+    const element = document.getElementById(elementID);
+    if (element) {
+      element.style.setProperty(String(CssKey), CssValue);
+    }
+  }, [elementID, CssKey, CssValue]);
 
-    return null;
-  },
-  (prevProps, nextProps) => {
-    return (
-      prevProps.elementID === nextProps.elementID &&
-      prevProps.CssKey === nextProps.CssKey &&
-      prevProps.CssValue === nextProps.CssValue
-    );
-  },
-);
+  return null;
+};
 
 export default ImageAttributeEditor;

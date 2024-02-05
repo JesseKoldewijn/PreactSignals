@@ -1,17 +1,22 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "plugins": [
       {
-        "name": "@astrojs/ts-plugin",
-      },
+        "name": "@astrojs/ts-plugin"
+      }
     ],
-    "baseUrl": ".",
+    "baseUrl": "/home/jesse/personal-wsl/signal.jereko.dev",
     "paths": {
-      "@/*": ["src/*"],
+      "@/*": [
+        "src/*"
+      ]
     },
-  },
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  }
 }

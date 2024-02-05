@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "preact/hooks";
 
 type Resource = {
   duration: number;
@@ -8,41 +8,34 @@ type Resource = {
 const Stats = () => {
   const [stats, setStats] = useState<Resource>();
 
-  const BytesToUnit = memo(
-    ({ bytes }: { bytes: number }) => {
-      if (!bytes) return "0 B";
+  const BytesToUnit = ({ bytes }: { bytes: number }) => {
+    if (!bytes) return <>0 B</>;
 
-      const units = ["B", "KB", "MB", "GB", "TB"];
-      let i = 0;
-      while (bytes >= 1024) {
-        bytes /= 1024;
-        i++;
-      }
-      return `${bytes.toFixed(1)} ${units[i]}`;
-    },
-    (prevProps, nextProps) => prevProps === nextProps,
-  );
+    const units = ["B", "KB", "MB", "GB", "TB"];
+    let i = 0;
+    while (bytes >= 1024) {
+      bytes /= 1024;
+      i++;
+    }
+    return <>{`${bytes.toFixed(1)} ${units[i]}`}</>;
+  };
 
-  const RenderStatValues = memo(
-    ({ stats }: { stats: Resource }) => {
-      return (
-        <>
-          <div className="flex w-full justify-between gap-2">
-            <span>Duration</span>
-            <span>{stats.duration} ms</span>
-          </div>
-          <div className="flex w-full justify-between gap-2">
-            <span>Transfer Size</span>
-            <span>
-              <BytesToUnit bytes={stats.transferSize} />
-            </span>
-          </div>
-        </>
-      );
-    },
-    (prevProps, nextProps) =>
-      JSON.stringify(prevProps.stats) === JSON.stringify(nextProps.stats),
-  );
+  const RenderStatValues = ({ stats }: { stats: Resource }) => {
+    return (
+      <>
+        <div className="flex w-full justify-between gap-2">
+          <span>Duration</span>
+          <span>{stats.duration} ms</span>
+        </div>
+        <div className="flex w-full justify-between gap-2">
+          <span>Transfer Size</span>
+          <span>
+            <BytesToUnit bytes={stats.transferSize} />
+          </span>
+        </div>
+      </>
+    );
+  };
 
   const getStats = () => {
     const resources = window.performance.getEntries();
@@ -74,7 +67,7 @@ const Stats = () => {
     setStats(totals);
   };
 
-  const RenderStats = memo(({ stats }: { stats: Resource | undefined }) => {
+  const RenderStats = ({ stats }: { stats: Resource | undefined }) => {
     if (!stats) return null;
 
     return (
@@ -82,7 +75,7 @@ const Stats = () => {
         <RenderStatValues stats={stats} />
       </div>
     );
-  });
+  };
 
   useEffect(() => {
     getStats();

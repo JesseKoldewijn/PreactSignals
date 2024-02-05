@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import type { VNode } from "preact";
+import { useEffect, useState } from "preact/hooks";
 
 import { appConfig } from "@/config/app";
 import { cn } from "@/utils/cn";
@@ -21,7 +22,7 @@ const Navbar = ({ initialPathname }: NavbarProps) => {
   }: {
     href: string;
     noUnderline?: boolean;
-    children: React.ReactNode;
+    children: preact.VNode | string;
   }) => {
     return (
       <a

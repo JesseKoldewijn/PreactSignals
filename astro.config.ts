@@ -1,5 +1,5 @@
 import node from "@astrojs/node";
-import react from "@astrojs/react";
+import preact from "@astrojs/preact";
 import vercel from "@astrojs/vercel/serverless";
 import { defineConfig } from "astro/config";
 
@@ -13,7 +13,7 @@ export default defineConfig({
         mode: "standalone",
       })
     : vercel(),
-  integrations: [react()],
+  integrations: [preact()],
   experimental: {
     clientPrerender: true,
   },
