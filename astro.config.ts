@@ -12,7 +12,11 @@ export default defineConfig({
     ? node({
         mode: "standalone",
       })
-    : vercel(),
+    : vercel({
+        edgeMiddleware: true,
+        imageService: true,
+        devImageService: "sharp",
+      }),
   integrations: [preact()],
   experimental: {
     clientPrerender: true,
