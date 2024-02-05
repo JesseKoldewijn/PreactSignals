@@ -4,7 +4,7 @@ export const appConfig = {
   },
   banner: {
     defaults: {
-      title: "React Signals",
+      title: "Preact Signals",
       description:
         "A light weight, fast and modern website showcasing the beauty of Signals",
     },
